@@ -64,11 +64,11 @@ public class Game {
     }
 
     /**
-     * Method that determines if the game has been won.
+     * Method that returns true if the game was won and false otherwise.
      *
-     * @return true if game has been won, false otherwise.
+     * @return true if the game was won and false otherwise.
      */
-    public boolean gameWon(){
+    public boolean gameWon() {
         return hasWon;
     }
 
@@ -110,19 +110,35 @@ public class Game {
     }
 
     /**
+     * Method that verifies if the game has ended. It doesn't determine if it was won or lost.
+     *
+     * @return Boolean that determines that the game ended
+     */
+    public boolean gameEnded() {
+        if(attempts <= 0) {
+            return true;
+        }
+        if(!getHiddenTitle().contains("_")){
+            hasWon = true;
+            return true;
+        }
+        return false;
+    }
+    /**
      * Method that classifies a validated guess from getUserInput() into correctLetters or wrongLetters.
      */
-    public void classifyGuessedLetter() {
+    public void turn() {
         String guess = getUserInput();
 
         if(movieToGuess.toLowerCase().contains(guess)) {
             correctLetters += guess + guess.toUpperCase();
+            System.out.println("Great! The title so far is: " + this.getHiddenTitle());
         } else {
             wrongLetters += " " + guess;
+            System.out.println("Oops! Wrong guess! These are all the wrong guesses so far: " +
+                                this.getWrongLetters());
+            attempts--;
+            System.out.println("Points left = " + attempts);
         }
-    }
-
-    public void setLetterCorrect(String test) {
-        correctLetters = test;
     }
 }
