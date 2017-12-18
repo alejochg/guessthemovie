@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 
 public class Game {
     /**
@@ -15,6 +15,7 @@ public class Game {
     private String wrongLetters;
     private String correctLetters;
     private boolean hasWon;
+    private Scanner letterScanner = new Scanner(System.in);
 
 
     /**
@@ -83,5 +84,45 @@ public class Game {
         } else {
             return movieToGuess.replaceAll("[a-zA-Z&&[^" + correctLetters +"]]","_");
         }
+    }
+
+    /**
+     * Method that asks the user for a letter and validates it. If the input is not a letter, throws an error
+     * message. Else, if the letter has already been guessed, throws an error message indicating that. If the
+     * input is valid, it returns it as a string.
+     *
+     * @return String that contains a validated input.
+     */
+    private String getUserInput() {
+        System.out.print("Guess a letter: ");
+        String letter = letterScanner.nextLine().toLowerCase();
+
+        if(!letter.matches("[a-z]")) {
+            System.out.println("That's not a letter!");
+            return getUserInput();
+        }
+        else if (wrongLetters.contains(letter) || correctLetters.contains(letter)){
+            System.out.println("You already guessed that letter!");
+            return getUserInput();
+        } else {
+            return letter;
+        }
+    }
+
+    /**
+     * Method that classifies a validated guess from getUserInput() into correctLetters or wrongLetters.
+     */
+    public void classifyGuessedLetter() {
+        String guess = getUserInput();
+
+        if(movieToGuess.toLowerCase().contains(guess)) {
+            correctLetters += guess + guess.toUpperCase();
+        } else {
+            wrongLetters += " " + guess;
+        }
+    }
+
+    public void setLetterCorrect(String test) {
+        correctLetters = test;
     }
 }
