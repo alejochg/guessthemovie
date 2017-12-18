@@ -45,10 +45,37 @@ public class Game {
     }
 
     /**
+     * Method that returns the string that contains the wrong guesses.
+     *
+     * @return string that contains the wrong guesses.
+     */
+    public String getWrongLetters(){
+        return wrongLetters;
+    }
+
+    /**
+     * Method that returns the string that contains the correct guesses.
+     *
+     * @return string that contains the correct guesses.
+     */
+    public String getCorrectLetters(){
+        return correctLetters;
+    }
+
+    /**
+     * Method that determines if the game has been won.
+     *
+     * @return true if game has been won, false otherwise.
+     */
+    public boolean gameWon(){
+        return hasWon;
+    }
+
+    /**
      * Method that replaces the letters in the title with underscores if no letter has been guessed,
      * and a string that contains underscores and guessed letters otherwise.
      *
-     * @return String that contains the hidden title, and the letters that have been guessed revealed.
+     * @return String that contains the hidden title, and reveals the letters that have been guessed.
      */
     public String getHiddenTitle() {
         if(correctLetters.equals("")) {
